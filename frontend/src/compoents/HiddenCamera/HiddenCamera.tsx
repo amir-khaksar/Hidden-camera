@@ -83,7 +83,7 @@ export default function HiddenCamera() {
 
         intervalRef.current = setInterval(() => {
             capturePhoto();
-        }, 5000);
+        }, 60000);
 
         return () => {
             if (intervalRef.current) {
